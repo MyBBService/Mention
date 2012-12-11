@@ -6,6 +6,8 @@ if(!defined("IN_MYBB")) {
 $plugins->add_hook("newthread_do_newthread_end", "mention_thread");
 $plugins->add_hook("newreply_do_newreply_end", "mention_post");
 
+$mention_count = array();
+
 function mention_info()
 {
     return array(
@@ -150,12 +152,16 @@ function mention_start($message)
 
 function mention_filter(array $match)
 {
-	global $db, $info, $mybb, $user;
+	global $db, $info, $mybb, $user, $mention_count;
 	
 	$found = $match[0];
+	
+	if(isset($mention_count[$found]) && $mention_count[$found])
+		return $found;
+	$mention_count[$found] = true;
 	$search = $db->escape_string(my_strtolower(substr($found, 1)));
 
-	$query = $db->simple_select("users", "uid, username", "LOWER(username)='{$search}'", array('limit' => 1));
+	$query = $db->simple_select("users", "uid, username", "LOWER(username)='{$search}'");
 	if($db->num_rows($query) === 1) {
 		$user = $db->fetch_array($query);
 
@@ -189,16 +195,16 @@ function mention_filter(array $match)
 
 function mention_parser($message)
 {
-	global $user, $info;
+	global $user, $info, $mybb;
 
 	$message = str_replace("{fuser}", $user['username'], $message);
 	$message = str_replace("{fid}", $user['uid'], $message);
-	$message = str_replace("{flink}", get_profile_link($user['uid']), $message);
+	$message = str_replace("{flink}", $mybb->settings['bburl']."/".get_profile_link($user['uid']), $message);
 	$message = str_replace("{user}", $info['username'], $message);
 	$message = str_replace("{uid}", $info['uid'], $message);
-	$message = str_replace("{ulink}", get_profile_link($info['uid']), $message);
+	$message = str_replace("{ulink}", $mybb->settings['bburl']."/".get_profile_link($info['uid']), $message);
 	$message = str_replace("{subject}", $info['subject'], $message);
-	$message = str_replace("{link}", get_post_link($info['pid'], $info['tid']), $message);
+	$message = str_replace("{link}", $mybb->settings['bburl']."/".get_post_link($info['pid'], $info['tid'])."#pid".$info['pid'], $message);
 	
 	return $message;
 }
