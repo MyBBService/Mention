@@ -11,14 +11,15 @@ $mention_count = array();
 function mention_info()
 {
     return array(
-        "name"        => "Mention",
-        "description" => "Benachrichtigt Benutzer bei Erwähnung ihres Namens",
-        "website"     => "http://mybbservice.de/",
-        "author"      => "MyBBService",
-        "authorsite"  => "http://mybbservice.de/",
-        "version"     => "1.0",
-        "guid"        => "",
-		"compatibility"	=> "16*, 17*",
+		"name"        => "Mention",
+		"description" => "Benachrichtigt Benutzer bei Erwähnung ihres Namens",
+		"website"     => "http://mybbservice.de/",
+		"author"      => "MyBBService",
+		"authorsite"  => "http://mybbservice.de/",
+		"version"     => "1.0.1",
+		"guid"        => "",
+		"compatibility"	=> "16*",
+		"dlcid"		  => "19"
     );
 }
 
