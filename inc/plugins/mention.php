@@ -16,7 +16,7 @@ function mention_info()
 		"website"     => "http://mybbservice.de/",
 		"author"      => "MyBBService",
 		"authorsite"  => "http://mybbservice.de/",
-		"version"     => "1.0.1",
+		"version"     => "1.0.2",
 		"guid"        => "",
 		"compatibility"	=> "16*",
 		"dlcid"		  => "19"
@@ -160,7 +160,7 @@ function mention_filter(array $match)
 	if(isset($mention_count[$found]) && $mention_count[$found])
 		return $found;
 	$mention_count[$found] = true;
-	$search = $db->escape_string(my_strtolower(substr($found, 1)));
+	$search = $db->escape_string(trim(my_strtolower(substr($found, 1)), '"'));
 
 	$query = $db->simple_select("users", "uid, username", "LOWER(username)='{$search}'");
 	if($db->num_rows($query) === 1) {
