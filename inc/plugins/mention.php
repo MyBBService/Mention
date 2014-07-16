@@ -10,91 +10,91 @@ $mention_count = array();
 
 function mention_info()
 {
-    return array(
-		"name"        => "Mention",
-		"description" => "Benachrichtigt Benutzer bei Erwähnung ihres Namens",
-		"website"     => "http://mybbservice.de/",
-		"author"      => "MyBBService",
-		"authorsite"  => "http://mybbservice.de/",
-		"version"     => "1.0.2",
-		"guid"        => "",
-		"compatibility"	=> "16*",
-		"dlcid"		  => "19"
-    );
+	return array(
+		"name"			=> "Mention",
+		"description"	=> "Benachrichtigt Benutzer bei Erwähnung ihres Namens",
+		"website"		=> "http://mybbservice.de/",
+		"author"		=> "MyBBService",
+		"authorsite"	=> "http://mybbservice.de/",
+		"version"		=> "1.0.3",
+		"guid"			=> "",
+		"compatibility"	=> "*",
+		"dlcid"			=> "19"
+	);
 }
 
 function mention_install()
 {
 	global $db;
 	$group = array(
-        "title"          => "Einstellungen für Mention",
-        "name"           => "mention",
-        "description"    => "",
-        "disporder"      => "50",
-        "isdefault"      => "0",
-    );
-    $gid = $db->insert_query("settinggroups", $group);
+		"title"			=> "Einstellungen für Mention",
+		"name"			=> "mention",
+		"description"	=> "",
+		"disporder"		=> "50",
+		"isdefault"		=> "0",
+	);
+	$gid = $db->insert_query("settinggroups", $group);
 
 	$setting = array(
-        "name"           => "mention_subject",
-        "title"          => "Titel",
-        "description"    => "Der Titel der versendeten PN. Ersetzunngsmöglichkeiten: siehe unten",
-        "optionscode"    => "text",
-        "value"          => 'Du wurdest in einem Beitrag erwähnt',
-        "disporder"      => '1',
-        "gid"            => (int)$gid,
-    );
+		"name"			=> "mention_subject",
+		"title"			=> "Titel",
+		"description"	=> "Der Titel der versendeten PN. Ersetzunngsmöglichkeiten: siehe unten",
+		"optionscode"	=> "text",
+		"value"			=> 'Du wurdest in einem Beitrag erwähnt',
+		"disporder"		=> '1',
+		"gid"			=> (int)$gid,
+	);
 	$db->insert_query("settings", $setting);
 
 	$setting = array(
-        "name"           => "mention_message",
-        "title"          => "Nachricht",
-        "description"    => "Der Inhalt der PN. Ersetzungsmöglichkeiten:<br />
+		"name"			=> "mention_message",
+		"title"			=> "Nachricht",
+		"description"	=> "Der Inhalt der PN. Ersetzungsmöglichkeiten:<br />
 {fuser} -> Name des benachrichtigten User<br />{fid} -> ID des benachrichtigen User<br />{flink} -> Link zu dem Profil des Users<br />
 {user} -> Name des Users der erwähnt<br />{uid} -> ID des Users der erwähnt<br />{ulink} -> Link zu dem Profil des Users<br />
 {subject} -> Titel des Beitrags<br />{link} -> Link zu dem Beitrag",
-        "optionscode"    => "textarea",
-        "value"          => 'Hallo {fuser},
+		"optionscode"	=> "textarea",
+		"value"			=> 'Hallo {fuser},
 
 Wir schreiben dir, weil du von [url={ulink}]{user}[/url] in dem Beitrag [url={link}]{subject}[/url] erwähnt wurdest.
 
 Mit freundlichen Grüßen',
-        "disporder"      => '2',
-        "gid"            => (int)$gid,
-    );
+		"disporder"		=> '2',
+		"gid"			=> (int)$gid,
+	);
 	$db->insert_query("settings", $setting);
 
 	$setting = array(
-        "name"           => "mention_disable_quote",
-        "title"          => "Deaktiviere Mention in [quote] Tags",
-        "description"    => "Soll das Plugin innerhalb von [quote] Tags reagieren?",
-        "optionscode"    => "yesno",
-		"value"			 => "yes",
-        "disporder"      => '3',
-        "gid"            => (int)$gid,
-    );
+		"name"			=> "mention_disable_quote",
+		"title"			=> "Deaktiviere Mention in [quote] Tags",
+		"description"	=> "Soll das Plugin innerhalb von [quote] Tags reagieren?",
+		"optionscode"	=> "yesno",
+		"value"			=> "yes",
+		"disporder"		=> '3',
+		"gid"			=> (int)$gid,
+	);
 	$db->insert_query("settings", $setting);
 
 	$setting = array(
-        "name"           => "mention_disable_code",
-        "title"          => "Deaktiviere Mention in [code] Tags",
-        "description"    => "Soll das Plugin innerhalb von [code] Tags reagieren?",
-        "optionscode"    => "yesno",
-		"value"			 => "yes",
-        "disporder"      => '4',
-        "gid"            => (int)$gid,
-    );
+		"name"			=> "mention_disable_code",
+		"title"			=> "Deaktiviere Mention in [code] Tags",
+		"description"	=> "Soll das Plugin innerhalb von [code] Tags reagieren?",
+		"optionscode"	=> "yesno",
+		"value"			=> "yes",
+		"disporder"		=> '4',
+		"gid"			=> (int)$gid,
+	);
 	$db->insert_query("settings", $setting);
 
 	$setting = array(
-        "name"           => "mention_disable_php",
-        "title"          => "Deaktiviere Mention in [php] Tags",
-        "description"    => "Soll das Plugin innerhalb von [php] Tags reagieren?",
-        "optionscode"    => "yesno",
-		"value"			 => "yes",
-        "disporder"      => '5',
-        "gid"            => (int)$gid,
-    );
+		"name"			=> "mention_disable_php",
+		"title"			=> "Deaktiviere Mention in [php] Tags",
+		"description"	=> "Soll das Plugin innerhalb von [php] Tags reagieren?",
+		"optionscode"	=> "yesno",
+		"value"			=> "yes",
+		"disporder"		=> '5',
+		"gid"			=> (int)$gid,
+	);
 	$db->insert_query("settings", $setting);
 	rebuild_settings();
 }
@@ -103,7 +103,7 @@ function mention_is_installed() {
 	global $db;
 	$query = $db->simple_select("settinggroups", "gid", "name='mention'");
 	if($db->num_rows($query) > 0)
-	    return true;
+		return true;
 	return false;
 }
 
@@ -112,7 +112,7 @@ function mention_uninstall()
 	global $db;
 
 	$query = $db->simple_select("settinggroups", "gid", "name='mention'");
-    $g = $db->fetch_array($query);
+	$g = $db->fetch_array($query);
 	$db->delete_query("settinggroups", "gid='".$g['gid']."'");
 	$db->delete_query("settings", "gid='".$g['gid']."'");
 	rebuild_settings();
@@ -142,11 +142,11 @@ function mention_start($message)
 {
 	global $mybb;
 	if($mybb->settings['mention_disable_quote'])
-	    $message = preg_replace("#\[quote\](.*?)\[/quote\]#si", "", $message);
+		$message = preg_replace("#\[quote\](.*?)\[/quote\]#si", "", $message);
 	if($mybb->settings['mention_disable_code'])
-	    $message = preg_replace("#\[code\](.*?)\[/code\]#si", "", $message);
+		$message = preg_replace("#\[code\](.*?)\[/code\]#si", "", $message);
 	if($mybb->settings['mention_disable_php'])
-	    $message = preg_replace("#\[php\](.*?)\[/php\]#si", "", $message);
+		$message = preg_replace("#\[php\](.*?)\[/php\]#si", "", $message);
 
 	preg_replace_callback('/@"([^<]+?)"|@([^\s<)]+)/', "mention_filter", $message);
 }
@@ -154,9 +154,9 @@ function mention_start($message)
 function mention_filter(array $match)
 {
 	global $db, $info, $mybb, $user, $mention_count;
-	
+
 	$found = $match[0];
-	
+
 	if(isset($mention_count[$found]) && $mention_count[$found])
 		return $found;
 	$mention_count[$found] = true;
